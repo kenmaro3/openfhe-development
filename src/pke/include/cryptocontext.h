@@ -878,13 +878,13 @@ public:
             if (cryptoParams->GetScalingTechnique() == FLEXIBLEAUTOEXT && level == 0) {
                 scf = cryptoParams->GetScalingFactorIntBig(level);
                 p   = PlaintextFactory::MakePlaintext(value, encoding, this->GetElementParams(),
-                                                    this->GetEncodingParams(), getSchemeId(), 1, level, scf);
+                                                      this->GetEncodingParams(), getSchemeId(), 1, level, scf);
                 p->SetNoiseScaleDeg(2);
             }
             else {
                 scf = cryptoParams->GetScalingFactorInt(level);
                 p   = PlaintextFactory::MakePlaintext(value, encoding, this->GetElementParams(),
-                                                    this->GetEncodingParams(), getSchemeId(), depth, level, scf);
+                                                      this->GetEncodingParams(), getSchemeId(), depth, level, scf);
             }
         }
         else {
@@ -970,6 +970,14 @@ public:
                        [](double da) { return std::complex<double>(da); });
 
         return MakeCKKSPackedPlaintextInternal(complexValue, depth, level, params, slots);
+    }
+
+    Plaintext MakeCKKSPackedPlaintextTmp(const std::vector<double>& value) const {
+        std::vector<std::complex<double>> complexValue(value.size());
+        std::transform(value.begin(), value.end(), complexValue.begin(),
+                       [](double da) { return std::complex<double>(da); });
+
+        return MakeCKKSPackedPlaintextInternal(complexValue, 1, 0, nullptr, 0);
     }
 
     /**
