@@ -1,4 +1,4 @@
-## OpenFHE + embuild
+## OpenFHE + embind
 
 OpenFHE to wasm
 
